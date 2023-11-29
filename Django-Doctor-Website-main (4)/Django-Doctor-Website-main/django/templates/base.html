@@ -1,0 +1,144 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>{{ title }}</title>
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+
+  <!-- Tawk.to Chat Widget Code -->
+  <script type="text/javascript">
+    var Tawk_API = Tawk_API || {};
+    Tawk_LoadStart = new Date();
+    (function () {
+      var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+      s1.async = true;
+      s1.src = 'https://embed.tawk.to/6565ef2c1db16644c5557d99/1hgb2shve';
+      s1.charset = 'UTF-8';
+      s1.setAttribute('crossorigin', '*');
+      s0.parentNode.insertBefore(s1, s0);
+    })();
+  </script>
+  <!-- End of Tawk.to Chat Widget Code -->
+
+</head>
+
+<style>
+  {% block style %}{% endblock style %}
+</style>
+
+<body>
+
+  <div class="header" style="
+  background: rgb(177, 177, 177) url('../static/img/header.png') no-repeat fixed center
+  {% if "appointment" in request.path %}
+  max-height:300px!important;min-height:300px!important;
+  {% endif %}
+  ">
+    
+    <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search">
+        <div class="container"><a class="navbar-brand" href="{% url 'home' %}">Family Doctor X</a>
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse"
+                id="navcol-1">
+                <ul class="nav navbar-nav">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" href="#team">Our Team</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" href="#services">Services</a>
+                    </li>
+                    
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" href="#reviews">Testimonial</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" href="#contact">Contact Us</a>
+                    </li>
+                    {% if request.user.is_authenticated %}
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link active" href="{% url 'manage' %}">Manage</a>
+                  </li>
+                  {% endif %}
+                  <li class="nav-item" role="presentation">
+                    <a href="{% url 'manage' %}" style="float: left;cursor:pointer;" aria-expanded="true" title="You Have 6 New Appointments">
+                      <i class="far fa-bell" style="font-size: 20px; float: left; color: black">
+                      </i>
+                  </a>
+                  <span class="badge badge-danger">{{count}}</span>
+                </li>
+                  
+         
+                </ul>
+            </div>
+        </div>
+    </nav>
+   
+   {% block cta %}{% endblock cta %}
+</div>
+
+{% block content %}{% endblock content %}
+
+<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+
+<script>
+  {% block script %}{% endblock script %}
+</script>
+
+<!-- Tawk.to Chat Widget Code -->
+<script type="text/javascript">
+  var Tawk_API = Tawk_API || {};
+  Tawk_LoadStart = new Date();
+  (function () {
+    var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+    s1.async = true;
+    s1.src = 'https://embed.tawk.to/6565ef2c1db16644c5557d99/1hgb2shve';
+    s1.charset = 'UTF-8';
+    s1.setAttribute('crossorigin', '*');
+    s0.parentNode.insertBefore(s1, s0);
+
+    // Function to simulate button click event
+    function simulateLinkClick(linkSelector) {
+      var link = document.querySelector(linkSelector);
+      if (link) {
+        link.click();
+      }
+    }
+
+    // Listen for Tawk.to chat events
+    Tawk_API.onMessageReceived = function (data) {
+      // Check for specific messages and simulate link click accordingly
+      if (data.msg === 'Our Team') {
+        simulateLinkClick('a[href="http://127.0.0.1:8000/#team"]');
+      } else if (data.msg === 'Make an Appointment') {
+        simulateLinkClick('a[href="http://127.0.0.1:8000/make-an-appointment/"]');
+      } else if (data.msg === 'Services') {
+        simulateLinkClick('a[href="http://127.0.0.1:8000/#services"]');
+      } else {
+        // Provide a random response if no specific conditions are met
+        var responses = [
+          "I'm here to assist you!",
+          "How can I help you today?",
+          "Feel free to ask me anything!",
+          // Add more responses as needed
+        ];
+        var randomResponse = responses[Math.floor(Math.random() * responses.length)];
+        Tawk_API.sendMessage(randomResponse);
+      }
+    };
+  })();
+</script>
+<!-- End of Tawk.to Chat Widget Code -->
+</body>
+
+</html>
